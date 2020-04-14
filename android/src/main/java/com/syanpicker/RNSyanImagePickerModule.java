@@ -330,11 +330,12 @@ public class RNSyanImagePickerModule extends ReactContextBaseJavaModule {
             if (TextUtils.isEmpty(media.getPath())) {
                 continue;
             }
+            String path = media.getRealPath() != null ? media.getRealPath() : media.getPath();
             WritableMap videoMap = new WritableNativeMap();
-            videoMap.putString("size", new File(media.getPath()).length() + "");
+            videoMap.putString("size", media.getSize() + "");
             videoMap.putString("duration", media.getDuration() + "");
-            videoMap.putString("fileName", new File(media.getPath()).getName());
-            videoMap.putString("uri", media.getAndroidQToPath() != null ? media.getAndroidQToPath() : media.getPath());
+            videoMap.putString("fileName", new File(path).getName());
+            videoMap.putString("uri", path);
             videoMap.putString("type", "video");
             videoList.pushMap(videoMap);
         }
@@ -378,7 +379,7 @@ public class RNSyanImagePickerModule extends ReactContextBaseJavaModule {
         imageMap.putString("type", "image");
         imageMap.putString("uri", "file://" + path);
         imageMap.putString("original_uri", "file://" + media.getPath());
-        imageMap.putInt("size", (int) new File(path).length());
+        imageMap.putInt("size", (int) media.getSize());
 
         if (enableBase64) {
             String encodeString = getBase64StringFromFile(path);
