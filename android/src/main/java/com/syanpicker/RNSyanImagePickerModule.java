@@ -330,7 +330,7 @@ public class RNSyanImagePickerModule extends ReactContextBaseJavaModule {
             if (TextUtils.isEmpty(media.getPath())) {
                 continue;
             }
-            String path = media.getRealPath() != null ? media.getRealPath() : media.getPath();
+            String path = media.getAndroidQToPath() != null ? media.getAndroidQToPath() : media.getPath();
             WritableMap videoMap = new WritableNativeMap();
             videoMap.putString("size", media.getSize() + "");
             videoMap.putString("duration", media.getDuration() + "");
